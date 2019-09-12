@@ -77,7 +77,7 @@ namespace Hf
 		std::chrono::time_point<std::chrono::system_clock> tp = std::chrono::system_clock::now();
 		time_t t = std::chrono::system_clock::to_time_t(tp);
 		tm* _Tm = nullptr;
-#ifdef WIN32
+#ifdef _WIN32
 		localtime_s(_Tm, &t);
 #elif __unix__
 		localtime_r(&t, _Tm);
@@ -103,7 +103,7 @@ namespace Hf
 		struct tm _Tm;
 		memset(&_Tm, 0, sizeof(struct tm));
 
-#ifdef WIN32
+#ifdef _WIN32
 		localtime_s(_Tm, &t);
 #elif __unix__
 		localtime_r(&t, &_Tm);
