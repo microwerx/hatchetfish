@@ -18,34 +18,36 @@
 // For any other type of licensing, please contact me at jmetzgar@outlook.com
 #include <hatchetfish_stopwatch.hpp>
 
-HatchetfishStopWatch::HatchetfishStopWatch()
+namespace Hf
 {
-    start_timepoint = std::chrono::system_clock::now();
-}
+	StopWatch::StopWatch()
+	{
+		start_timepoint = std::chrono::system_clock::now();
+	}
 
-HatchetfishStopWatch::~HatchetfishStopWatch()
-{
-}
+	StopWatch::~StopWatch()
+	{
+	}
 
-void HatchetfishStopWatch::Start()
-{
-    start_timepoint = std::chrono::system_clock::now();
-}
+	void StopWatch::Start()
+	{
+		start_timepoint = std::chrono::system_clock::now();
+	}
 
-void HatchetfishStopWatch::Stop()
-{
-    end_timepoint = std::chrono::system_clock::now();
-}
+	void StopWatch::Stop()
+	{
+		end_timepoint = std::chrono::system_clock::now();
+	}
 
-double HatchetfishStopWatch::GetSecondsElapsed()
-{
-    auto diff = end_timepoint - start_timepoint;
-    return std::chrono::duration<double>(diff).count();
-}
+	double StopWatch::GetSecondsElapsed()
+	{
+		auto diff = end_timepoint - start_timepoint;
+		return std::chrono::duration<double>(diff).count();
+	}
 
-double HatchetfishStopWatch::GetMillisecondsElapsed()
-{
-    auto diff = end_timepoint - start_timepoint;
-    return std::chrono::duration<double, std::milli>(diff).count();
+	double StopWatch::GetMillisecondsElapsed()
+	{
+		auto diff = end_timepoint - start_timepoint;
+		return std::chrono::duration<double, std::milli>(diff).count();
+	}
 }
-

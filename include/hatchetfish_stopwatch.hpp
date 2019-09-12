@@ -21,20 +21,23 @@
 
 #include <chrono>
 
-class HatchetfishStopWatch
+namespace Hf
 {
-public:
-	HatchetfishStopWatch();
-	~HatchetfishStopWatch();
+	class StopWatch
+	{
+	public:
+		StopWatch();
+		~StopWatch();
 
-	void Start();
-	void Stop();
-	double GetMillisecondsElapsed();
-	double GetSecondsElapsed();
+		void Start();
+		void Stop();
+		double GetMillisecondsElapsed();
+		double GetSecondsElapsed();
 
-private:
-	std::chrono::time_point<std::chrono::system_clock> start_timepoint;
-	std::chrono::time_point<std::chrono::system_clock> end_timepoint;
-};
+	private:
+		std::chrono::time_point<std::chrono::system_clock> start_timepoint;
+		std::chrono::time_point<std::chrono::system_clock> end_timepoint;
+	};
+}
 
 #endif
