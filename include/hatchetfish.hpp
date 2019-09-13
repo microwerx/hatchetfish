@@ -31,7 +31,10 @@
 #define HFLOGERROR(...) Hf::Log.errorfn(__FUNCTION__, __VA_ARGS__)
 #define HFLOGDEBUG(...) Hf::Log.debugfn(__FUNCTION__, __VA_ARGS__)
 #define HFLOG(...) Hf::Log.logfn(__FUNCTION__, __VA_ARGS)
-#define HFLOGDEBUGFIRSTRUN() { static int firstRun = 1; if (firstRun) { firstRun = 0; HFLOGDEBUG(""); } }
+#ifndef HFLOGDEBUGFIRSTRUN_COUNT
+#define HFLOGDEBUGFIRSTRUN_COUNT 1
+#endif
+#define HFLOGDEBUGFIRSTRUN() { static unsigned firstRun = HFLOGDEBUGFIRSTRUN_COUNT; if (firstRun) { firstRun--; HFLOGDEBUG("run %i", HFLOGDEBUGFIRSTRUN_COUNT - firstRun); } }
 
 namespace Hf
 {

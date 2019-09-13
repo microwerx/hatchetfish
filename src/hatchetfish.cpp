@@ -54,18 +54,15 @@ namespace Hf
 		const char* error = "ERROR";
 	}
 
-	Hatchetfish::Hatchetfish()
-	{
+	Hatchetfish::Hatchetfish() {
 		fout = stdout;
 	}
 
-	Hatchetfish::~Hatchetfish()
-	{
+	Hatchetfish::~Hatchetfish() {
 		setOutputFile();
 	}
 
-	std::string Hatchetfish::makeDTG()
-	{
+	std::string Hatchetfish::makeDTG() {
 		char msg[50];
 #ifdef __STDC_SECURE_LIB__
 		struct tm newtime;
@@ -88,8 +85,7 @@ namespace Hf
 		return dtg;
 	}
 
-	std::string Hatchetfish::makeTimeStamp()
-	{
+	std::string Hatchetfish::makeTimeStamp() {
 		char msg[50] = { 0 };
 #ifdef __STDC_SECURE_LIB__
 		struct tm newtime;
@@ -114,8 +110,7 @@ namespace Hf
 		return timeStamp;
 	}
 
-	const std::string& Hatchetfish::makeMessage(const char* category, const char* msg, va_list args)
-	{
+	const std::string& Hatchetfish::makeMessage(const char* category, const char* msg, va_list args) {
 		std::ostringstream ostr;
 		makeTimeStamp();
 
@@ -137,8 +132,7 @@ namespace Hf
 		return lastMessage;
 	}
 
-	const std::string& Hatchetfish::makeMessagefn(const char* category, const char* fn, const char* msg, va_list args)
-	{
+	const std::string& Hatchetfish::makeMessagefn(const char* category, const char* fn, const char* msg, va_list args) {
 		std::ostringstream ostr;
 		makeTimeStamp();
 
@@ -163,8 +157,7 @@ namespace Hf
 		return lastMessage;
 	}
 
-	void Hatchetfish::print(const char* color)
-	{
+	void Hatchetfish::print(const char* color) {
 		if (logEnabled && colorEnabled) {
 			fprintf(fout, "%s%s%s\n", color, lastMessage.c_str(), ansi::normal);
 		}
@@ -173,8 +166,7 @@ namespace Hf
 		}
 	}
 
-	void Hatchetfish::log(const char* category, const char* msg, ...)
-	{
+	void Hatchetfish::log(const char* category, const char* msg, ...) {
 		va_list args;
 		va_start(args, msg);
 		makeMessage(category, msg, args);
@@ -182,8 +174,7 @@ namespace Hf
 		print(ansi::normal);
 	}
 
-	void Hatchetfish::logfn(const char* category, const char* fn, const char* msg, ...)
-	{
+	void Hatchetfish::logfn(const char* category, const char* fn, const char* msg, ...) {
 		va_list args;
 		va_start(args, msg);
 		makeMessagefn(category, fn, msg, args);
@@ -191,8 +182,7 @@ namespace Hf
 		print(ansi::normal);
 	}
 
-	void Hatchetfish::info(const char* msg, ...)
-	{
+	void Hatchetfish::info(const char* msg, ...) {
 		va_list args;
 		va_start(args, msg);
 		makeMessage(hf::info, msg, args);
@@ -200,8 +190,7 @@ namespace Hf
 		print(ansi::cyan);
 	}
 
-	void Hatchetfish::infofn(const char* fn, const char* msg, ...)
-	{
+	void Hatchetfish::infofn(const char* fn, const char* msg, ...) {
 		va_list args;
 		va_start(args, msg);
 		makeMessagefn(hf::info, fn, msg, args);
@@ -209,8 +198,7 @@ namespace Hf
 		print(ansi::cyan);
 	}
 
-	void Hatchetfish::warning(const char* msg, ...)
-	{
+	void Hatchetfish::warning(const char* msg, ...) {
 		va_list args;
 		va_start(args, msg);
 		makeMessage(hf::warning, msg, args);
@@ -218,8 +206,7 @@ namespace Hf
 		print(ansi::yellow);
 	}
 
-	void Hatchetfish::warningfn(const char* fn, const char* msg, ...)
-	{
+	void Hatchetfish::warningfn(const char* fn, const char* msg, ...) {
 		va_list args;
 		va_start(args, msg);
 		makeMessagefn("WARNING", fn, msg, args);
@@ -227,8 +214,7 @@ namespace Hf
 		print(ansi::yellow);
 	}
 
-	void Hatchetfish::error(const char* msg, ...)
-	{
+	void Hatchetfish::error(const char* msg, ...) {
 		va_list args;
 		va_start(args, msg);
 		makeMessage("ERROR", msg, args);
@@ -236,8 +222,7 @@ namespace Hf
 		print(ansi::red);
 	}
 
-	void Hatchetfish::errorfn(const char* fn, const char* msg, ...)
-	{
+	void Hatchetfish::errorfn(const char* fn, const char* msg, ...) {
 		va_list args;
 		va_start(args, msg);
 		makeMessagefn("ERROR", fn, msg, args);
@@ -245,8 +230,7 @@ namespace Hf
 		print(ansi::red);
 	}
 
-	void Hatchetfish::debug(const char* msg, ...)
-	{
+	void Hatchetfish::debug(const char* msg, ...) {
 		va_list args;
 		va_start(args, msg);
 		makeMessage("DEBUG", msg, args);
@@ -254,8 +238,7 @@ namespace Hf
 		print(ansi::magenta);
 	}
 
-	void Hatchetfish::debugfn(const char* fn, const char* msg, ...)
-	{
+	void Hatchetfish::debugfn(const char* fn, const char* msg, ...) {
 		va_list args;
 		va_start(args, msg);
 		makeMessagefn("DEBUG", fn, msg, args);
@@ -263,13 +246,11 @@ namespace Hf
 		print(ansi::magenta);
 	}
 
-	void Hatchetfish::flush()
-	{
+	void Hatchetfish::flush() {
 		fflush(fout);
 	}
 
-	void Hatchetfish::setOutputFile(FILE* fileStream)
-	{
+	void Hatchetfish::setOutputFile(FILE* fileStream) {
 		if (fileStream == stdin)
 			return;
 		if (fout != NULL && fout != stderr && fout != stdout) {
@@ -281,29 +262,24 @@ namespace Hf
 			fout = fileStream;
 	}
 
-	double Hatchetfish::getSecondsElapsed()
-	{
+	double Hatchetfish::getSecondsElapsed() {
 		return getMicrosecondsElapsed() / 1.0e6;
 	}
 
-	double Hatchetfish::getMillisecondsElapsed()
-	{
+	double Hatchetfish::getMillisecondsElapsed() {
 		return getMicrosecondsElapsed() / 1.0e3;
 	}
 
-	double Hatchetfish::getMicrosecondsElapsed()
-	{
+	double Hatchetfish::getMicrosecondsElapsed() {
 		t1 = std::chrono::high_resolution_clock::now();
 		return (double)std::chrono::duration_cast<std::chrono::microseconds>(t1 - t0).count();
 	}
 
-	void Hatchetfish::resetClock()
-	{
+	void Hatchetfish::resetClock() {
 		t0 = t1 = std::chrono::high_resolution_clock::now();
 	}
 
-	void Hatchetfish::saveStats(const std::string& filenameprefix)
-	{
+	void Hatchetfish::saveStats(const std::string& filenameprefix) {
 		for (auto& stat : stats) {
 			computeStat(stat.first);
 			std::ofstream fout_(filenameprefix + stat.first + ".csv", std::ios::app);
@@ -323,8 +299,7 @@ namespace Hf
 		}
 	}
 
-	void Hatchetfish::takeStat(const std::string& name)
-	{
+	void Hatchetfish::takeStat(const std::string& name) {
 		double elapsedTime = getSecondsElapsed();
 		auto& X = stats[name].X;
 		double deltaTime = 0.0;
@@ -337,8 +312,7 @@ namespace Hf
 		X.push_back({ elapsedTime, deltaTime, r });
 	}
 
-	void Hatchetfish::takeStat(const std::string& name, double xval)
-	{
+	void Hatchetfish::takeStat(const std::string& name, double xval) {
 		double elapsedTime = getSecondsElapsed();
 		auto& X = stats[name].X;
 		double r = 0.0;
@@ -349,8 +323,7 @@ namespace Hf
 		X.push_back({ elapsedTime, xval, r });
 	}
 
-	void Hatchetfish::resetStat(const std::string& name)
-	{
+	void Hatchetfish::resetStat(const std::string& name) {
 		auto& stat = stats[name];
 		stat.lcl = 0.0;
 		stat.ucl = 0.0;
@@ -359,8 +332,7 @@ namespace Hf
 		stat.X.clear();
 	}
 
-	void Hatchetfish::computeStat(const std::string& name, bool filter)
-	{
+	void Hatchetfish::computeStat(const std::string& name, bool filter) {
 		TimeDataPoints& stat = stats[name];
 		stat.lcl = 0.0;
 		stat.ucl = 0.0;
@@ -384,5 +356,10 @@ namespace Hf
 			}
 			stat.computeStats();
 		}
+	}
+
+	const Hatchetfish::TimeDataPoints& Hatchetfish::getStat(const std::string& name) {
+		TimeDataPoints& stat = stats[name];
+		return stat;
 	}
 }
