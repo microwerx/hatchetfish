@@ -74,10 +74,10 @@ namespace Hf {
 
 		struct TimeDataPoints {
 			std::vector<TimeDataPoint> X;
-			double xbar;
-			double rbar;
-			double lcl;
-			double ucl;
+			double xbar{ 0 };
+			double rbar{ 0 };
+			double lcl{ 0 };
+			double ucl{ 0 };
 
 			void computeStats() {
 				xbar = 0.0;
